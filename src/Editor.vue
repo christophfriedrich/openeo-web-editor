@@ -147,11 +147,12 @@ export default {
 	methods: {
 
 		changeServer(url) {
-			this.connection = this.openEO.connect(url);
-
-			// Request authentication
-			// ToDo: Problem: Auth is fired to late, BackendPanel updates earlier...
-			this.requestCapabilities();  // also requests output formats, services and auth
+			this.openEO.connect(url).then((con) => {
+				this.connection = con;
+				// Request authentication
+				// ToDo: Problem: Auth is fired to late, BackendPanel updates earlier...
+				this.requestCapabilities();  // also requests output formats, services and auth
+			});
 		},
 
 		serverChanged() {
